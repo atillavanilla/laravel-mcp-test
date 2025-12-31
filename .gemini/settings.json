@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "laravel-backend": {
+      "command": "php",
+      "args": ["artisan", "mcp:start", "posts"],
+      "env": {
+        "APP_ENV": "local"
+      },
+      "trust": false
+    }
+  },
+  "capabilities": {
+    "fileReading": false,
+    "autoExecute": false
+  }
+}
