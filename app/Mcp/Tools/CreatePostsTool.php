@@ -8,7 +8,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class GetPostsTool extends Tool
+class CreatePostsTool extends Tool
 {
     /**
      * The tool's description.
@@ -31,9 +31,7 @@ class GetPostsTool extends Tool
 
         $createPost->execute($posts);
 
-        return Response::text(<<<'MARKDOWN'
-            Post created successfully.
-        MARKDOWN);
+        return Response::text('Post created successfully.');
     }
 
     /**

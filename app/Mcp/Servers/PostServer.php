@@ -3,7 +3,9 @@
 namespace App\Mcp\Servers;
 
 use Laravel\Mcp\Server;
-use App\Mcp\Tools\GetPostsTool;
+use App\Mcp\Tools\EditPost;
+use App\Mcp\Tools\CreatePostsTool;
+use App\Mcp\Tools\SearchPostsTool;
 
 class PostServer extends Server
 {
@@ -30,9 +32,9 @@ class PostServer extends Server
      * @var array<int, class-string<\Laravel\Mcp\Server\Tool>>
      */
     protected array $tools = [
-        //
-
-        GetPostsTool::class,
+        CreatePostsTool::class,
+        EditPost::class,
+        SearchPostsTool::class,
     ];
 
     /**
