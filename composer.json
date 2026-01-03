@@ -9,7 +9,9 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/mcp": "^0.5.1",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "prism-php/prism": "^0.99.10",
+        "prism-php/relay": "^1.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
