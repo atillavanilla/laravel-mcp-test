@@ -26,10 +26,14 @@ class SearchPostsTool extends Tool
             'query' => 'required|string',
         ]);
 
-        $postQuery = Post::where('title', 'like', '%' . $validated['query'] . '%')
-            ->orWhere('content', 'like', '%' . $validated['query'] . '%')
-            ->get();
 
+        if (empty($validated['query']) || $validated['query'] === '*' || strtolower($validated['query']) === 'all') {
+            $postQuery = Post::all();
+        }else {
+            $postQuery = Post::where('title', 'like', '%' . $validated['query'] . '%')
+                ->orWhere('content', 'like', '%' . $validated['query'] . '%')
+                ->get();
+        }
         if ($postQuery->isEmpty()) {
             return Response::text('No posts found matching the query.');
         }
