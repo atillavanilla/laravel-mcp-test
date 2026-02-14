@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -20,7 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (request()->header('X-Forwarded-Proto') === 'https') {
+            URL::forceScheme('https');
+        }
+
         Passport::loadKeysFrom(storage_path('oauth'));
 
         Passport::authorizationView(function ($parameters) {
@@ -34,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
                 'app_name' => config('app.name'),
                 'support_email' => 'help@example.com',
                 'is_vip_user' => $parameters['user']->isVip(),
+                'all_params' => $parameters,
             ]);
         });
     }

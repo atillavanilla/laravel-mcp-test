@@ -413,6 +413,11 @@
                     <a href="mailto:{{ $support_email }}">Need help?</a>
                 </p>
             </div>
+
+        </div>
+        <div>
+            Log: <br>
+            <pre>{{ json_encode($all_params, JSON_PRETTY_PRINT) }}</pre>
         </div>
 
         <p class="powered-by">Secured by {{ $app_name }}</p>
