@@ -48,6 +48,11 @@ class User extends Authenticatable implements OAuthenticatable
         ];
     }
 
+    public function isVip(): bool
+    {
+        return false;
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);

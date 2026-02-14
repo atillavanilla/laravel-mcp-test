@@ -3,7 +3,6 @@
 namespace App\Mcp\Tools;
 
 use App\Actions\UpdatePost;
-use App\Models\Post;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
@@ -31,11 +30,8 @@ class EditPost extends Tool
             'content' => 'sometimes|string',
         ]);
 
-        $editPost = Post::findOrFail($post['id']);
-
-        if (!$editPost) {
-            return Response::error('Post not found.');
-        }
+        $user = auth('api')->user();
+        $editPost = $user->posts()->findOrFail($post['id']);
 
         $updateData = collect($post)->except('id')->toArray();
 

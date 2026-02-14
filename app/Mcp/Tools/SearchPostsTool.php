@@ -2,7 +2,6 @@
 
 namespace App\Mcp\Tools;
 
-use App\Models\Post;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
@@ -27,13 +26,18 @@ class SearchPostsTool extends Tool
         ]);
 
 
-        if (empty($validated['query']) || $validated['query'] === '*' || strtolower($validated['query']) === 'all') {
-            $postQuery = Post::all();
-        }else {
-            $postQuery = Post::where('title', 'like', '%' . $validated['query'] . '%')
-                ->orWhere('content', 'like', '%' . $validated['query'] . '%')
-                ->get();
+        $user = auth('api')->user();
+
+        $query = $user->posts()->select('id', 'title', 'content', 'created_at');
+
+        if (!empty($validated['query']) && $validated['query'] !== '*' && strtolower($validated['query']) !== 'all') {
+            $query->where(function ($q) use ($validated) {
+                $q->where('title', 'like', '%' . $validated['query'] . '%')
+                  ->orWhere('content', 'like', '%' . $validated['query'] . '%');
+            });
         }
+
+        $postQuery = $query->get();
         if ($postQuery->isEmpty()) {
             return Response::text('No posts found matching the query.');
         }

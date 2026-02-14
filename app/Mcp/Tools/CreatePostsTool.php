@@ -22,14 +22,14 @@ class CreatePostsTool extends Tool
      */
     public function handle(Request $request, CreatePost $createPost): Response
     {
-        //
-        // $posts = $request->only(['title', 'content']);
         $posts = $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
         ]);
 
-        $createPost->execute($posts);
+        $user = auth('api')->user();
+
+        $createPost->execute(array_merge($posts, ['user_id' => $user->id]));
 
         return Response::text('Post created successfully.');
     }
