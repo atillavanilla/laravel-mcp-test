@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/chat', ChatController::class)->name('chat');
 
 Route::get('/login', function () {
     return view('auth.login');

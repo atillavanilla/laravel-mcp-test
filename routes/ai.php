@@ -1,9 +1,10 @@
 <?php
 
+use App\Mcp\Servers\PostServer;
 use Laravel\Mcp\Facades\Mcp;
 
 Mcp::oauthRoutes();
 
-Mcp::web('posts', \App\Mcp\Servers\PostServer::class)
+Mcp::web('posts', PostServer::class)
     ->middleware('auth:api');
 
