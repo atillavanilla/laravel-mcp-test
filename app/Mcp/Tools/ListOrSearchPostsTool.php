@@ -7,12 +7,12 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class SearchPostsTool extends Tool
+class ListOrSearchPostsTool extends Tool
 {
     /**
      * The tool's description.
      */
-    protected string $description = 'Search for posts by title or content to find their IDs.';
+    protected string $description = 'Search for posts by title or content to find their IDs...you can pass * or . as a wildcard to search for all posts... all can be used as keyword to search for all posts';
 
     /**
      * Handle the tool request.

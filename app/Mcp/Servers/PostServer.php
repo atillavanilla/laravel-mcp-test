@@ -2,10 +2,12 @@
 
 namespace App\Mcp\Servers;
 
-use Laravel\Mcp\Server;
-use App\Mcp\Tools\EditPost;
+use App\Mcp\Resources\ApariUI;
 use App\Mcp\Tools\CreatePostsTool;
-use App\Mcp\Tools\SearchPostsTool;
+use App\Mcp\Tools\EditPost;
+use App\Mcp\Tools\ListOrSearchPostsTool;
+use App\Mcp\Tools\ShowApariManagerUI;
+use Laravel\Mcp\Server;
 
 class PostServer extends Server
 {
@@ -34,7 +36,8 @@ class PostServer extends Server
     protected array $tools = [
         CreatePostsTool::class,
         EditPost::class,
-        SearchPostsTool::class,
+        ListOrSearchPostsTool::class,
+        ShowApariManagerUI::class,
     ];
 
     /**
@@ -43,7 +46,7 @@ class PostServer extends Server
      * @var array<int, class-string<\Laravel\Mcp\Server\Resource>>
      */
     protected array $resources = [
-        //
+        ApariUI::class,
     ];
 
     /**
