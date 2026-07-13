@@ -58,3 +58,14 @@ class User extends Authenticatable implements OAuthenticatable
         return $this->hasMany(Post::class);
     }
 }
+
+
+// [12:25 PM, 7/10/2026] Br Doctor: There is product table
+// [12:26 PM, 7/10/2026] Br Doctor: Product category
+// [12:26 PM, 7/10/2026] Br Doctor: Product sizes
+// [12:26 PM, 7/10/2026] Br Doctor: Product prices
+// [12:26 PM, 7/10/2026] Br Doctor: Once those are in place
+// [12:27 PM, 7/10/2026] Br Doctor: We then have stock, stock items (stock items are products you want to stock and their sizes
+// [12:27 PM, 7/10/2026] Br Doctor: When you lock a stock the system automatically generates product prices
+// [12:29 PM, 7/10/2026] Br Doctor: Now if customer sends us their product in csv or pdf we can then build something that will read these details, load it into the right product, size and stock it
+// [12:29 PM, 7/10/2026] Br Doctor: The lock the stock so it updates on the site

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +13,40 @@ Route::get('/', function () {
 });
 
 Route::post('/chat', ChatController::class)->name('chat');
+
+Route::middleware('auth')->group(function () {
+    Route::redirect('/dashboard', '/products')->name('dashboard');
+
+    Route::get('/products', function () {
+        $products = Product::query()
+            ->with(['category', 'sizes' => fn ($query) => $query->orderBy('sort_order'), 'prices.size'])
+            ->withCount('stockItems')
+            ->latest()
+            ->get();
+
+        return view('inventory.products', compact('products'));
+    })->name('products.index');
+
+    Route::get('/stocks', function () {
+        $stocks = Stock::query()
+            ->with(['items.product', 'items.size'])
+            ->withCount('items')
+            ->latest()
+            ->get();
+
+        return view('inventory.stocks', compact('stocks'));
+    })->name('stocks.index');
+
+    Route::get('/categories', function () {
+        $categories = ProductCategory::query()
+            ->with(['products' => fn ($query) => $query->latest()])
+            ->withCount('products')
+            ->orderBy('name')
+            ->get();
+
+        return view('inventory.categories', compact('categories'));
+    })->name('categories.index');
+});
 
 Route::get('/login', function () {
     return view('auth.login');
